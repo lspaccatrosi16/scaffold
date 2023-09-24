@@ -143,7 +143,9 @@ folder_input:
 			Value: name,
 		})
 	}
-	selectedTemplate, err := input.GetSelection("Pick a template", options)
+
+	selectedTemplate, err := input.GetSearchableSelection("Pick a template", options)
+
 	if err != nil {
 		panic(err)
 	}
