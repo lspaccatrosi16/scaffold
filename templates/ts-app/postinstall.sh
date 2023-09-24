@@ -1,1 +1,1 @@
-npm i
+echo Installed
