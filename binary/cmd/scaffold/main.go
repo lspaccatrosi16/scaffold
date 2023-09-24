@@ -115,6 +115,7 @@ func getTemplates() ([]string, map[string]*[]byte) {
 }
 
 func getData(availTemplates []string) ScaffoldData {
+	logger := logging.GetLogger()
 folder_input:
 	targetPath := input.GetInput("Target path")
 	stats, err := os.Stat(targetPath)
@@ -142,12 +143,22 @@ folder_input:
 			Value: name,
 		})
 	}
-
 	selectedTemplate, err := input.GetSelection("Pick a template", options)
 	if err != nil {
 		panic(err)
 	}
-
+	logger.LogDivider()
+	logger.Log("Action Summary")
+	logger.Log(fmt.Sprintf("Path     : %s", targetPath))
+	logger.Log(fmt.Sprintf("Template : %s", selectedTemplate))
+	logger.LogDivider()
+	proceed, err := input.GetConfirmSelection("Proceed with scaffolding")
+	if err != nil {
+		panic(err)
+	}
+	if !proceed {
+		os.Exit(0)
+	}
 	return ScaffoldData{
 		TargetPath: targetPath,
 		Template:   selectedTemplate,
