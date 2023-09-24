@@ -1,16 +1,18 @@
 package main
 
 import (
-	"archive/zip"
-	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
+	"path/filepath"
 	"sort"
 
 	"github.com/lspaccatrosi16/go-cli-tools/input"
+	"github.com/lspaccatrosi16/go-cli-tools/logging"
+	"github.com/mandelsoft/vfs/pkg/memoryfs"
+	"github.com/mandelsoft/vfs/pkg/vfs"
 )
 
 type ScaffoldData struct {
@@ -19,7 +21,21 @@ type ScaffoldData struct {
 }
 
 func main() {
-	fmt.Println("Hello world")
+	logger := logging.GetLogger()
+	logger.LogDivider()
+	logger.Log("Getting Template List")
+	templateNames, templates := getTemplates()
+	logger.Log("Got Template List")
+	logger.LogDivider()
+	selected := getData(templateNames)
+	chosenTemplate, ok := templates[selected.Template]
+	if !ok {
+		panic("selected template was selected but does not exist in map")
+	}
+	createScaffold(selected.TargetPath, chosenTemplate)
+	executePostInstall(selected.TargetPath)
+	logger.LogDivider()
+	logger.Log("Done")
 }
 
 //scaffold does this:
@@ -27,7 +43,38 @@ func main() {
 // copy it to target dir
 // runs and then deletes postinstall.sh in target
 
-func getTemplates() ([]string, []*[]byte) {
+func executePostInstall(path string) {
+	expectedPath := filepath.Join(path, "postinstall.sh")
+	_, err := os.Stat(expectedPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return
+		} else {
+			panic(err)
+		}
+	}
+	cmd := exec.Command("/bin/sh", expectedPath)
+	output, err := cmd.Output()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(output))
+}
+
+func createScaffold(path string, templateZip *[]byte) {
+	mfs := memoryfs.New()
+	_, err := unzipFolder(templateZip, "", mfs)
+	if err != nil {
+		panic(err)
+	}
+	err = vfsToDisk(path, "", mfs)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func getTemplates() ([]string, map[string]*[]byte) {
+	mfs := memoryfs.New()
 	resp, err := http.Get("https://github.com/lspaccatrosi16/scaffold/archive/refs/heads/master.zip")
 	if err != nil {
 		panic(err)
@@ -37,32 +84,30 @@ func getTemplates() ([]string, []*[]byte) {
 	if err != nil {
 		panic(err)
 	}
-
-	zipReader, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
+	baseFolderName, err := unzipFolder(&data, "", mfs)
 	if err != nil {
 		panic(err)
 	}
-
-	for _, zipFile := range zipReader.File {
-		unzipped, err := readZippedFile(zipFile)
+	templates := map[string]*[]byte{}
+	templateNames := []string{}
+	templatesPath := filepath.Join(baseFolderName, "templates")
+	templateFolders, err := vfs.ReadDir(mfs, templatesPath)
+	if err != nil {
+		panic(err)
+	}
+	for _, folder := range templateFolders {
+		if !folder.IsDir() {
+			continue
+		}
+		templateNames = append(templateNames, folder.Name())
+		startPath := filepath.Join(templatesPath, folder.Name())
+		zipped, err := zipFolder(startPath, mfs)
 		if err != nil {
 			panic(err)
 		}
-		fmt.Printf("Reading %s\n", zipFile.Name)
-
-		_ = unzipped
+		templates[folder.Name()] = zipped
 	}
-	return []string{}, []*[]byte{}
-}
-
-func readZippedFile(zf *zip.File) ([]byte, error) {
-	f, err := zf.Open()
-	if err != nil {
-		return []byte{}, err
-	}
-
-	defer f.Close()
-	return ioutil.ReadAll(f)
+	return templateNames, templates
 }
 
 func getData(availTemplates []string) ScaffoldData {
@@ -79,11 +124,11 @@ folder_input:
 		} else {
 			panic(err)
 		}
-	}
-
-	if !stats.IsDir() {
-		fmt.Printf("Path %s is not a directory", targetPath)
-		goto folder_input
+	} else {
+		if !stats.IsDir() {
+			fmt.Printf("Path %s is not a directory", targetPath)
+			goto folder_input
+		}
 	}
 	sort.Strings(availTemplates)
 	options := []input.SelectOption{}
