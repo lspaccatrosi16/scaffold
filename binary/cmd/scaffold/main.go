@@ -59,6 +59,10 @@ func executePostInstall(path string) {
 		panic(err)
 	}
 	fmt.Println(string(output))
+	err = os.Remove(expectedPath)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func createScaffold(path string, templateZip *[]byte) {
