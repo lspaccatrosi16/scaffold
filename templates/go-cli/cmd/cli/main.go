@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/lspaccatrosi16/spac/lib/error"
-	"github.com/lspaccatrosi16/spac/lib/foo"
-	"github.com/lspaccatrosi16/spac/lib/hello"
-	"github.com/lspaccatrosi16/spac/lib/types"
+	"example.com/my/project/lib/error"
+	"example.com/my/project/lib/foo"
+	"example.com/my/project/lib/hello"
+	"example.com/my/project/lib/types"
 )
 
 func main() {
