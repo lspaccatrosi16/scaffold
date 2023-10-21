@@ -16,12 +16,3 @@ func main() {
 
 	manager.Gui()
 }
-
-// what do I want this to do?
-
-// setup environment
-
-// setup environment:
-// install aup
-// add scaffold to aup
-// install useful things (support different package managers e.g. dnf, apt)
