@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"sort"
 
+	"github.com/lspaccatrosi16/go-cli-tools/fs"
+	"github.com/lspaccatrosi16/go-cli-tools/fs/zip"
 	"github.com/lspaccatrosi16/go-cli-tools/input"
 	"github.com/lspaccatrosi16/go-cli-tools/logging"
 	"github.com/mandelsoft/vfs/pkg/memoryfs"
@@ -67,11 +69,11 @@ func executePostInstall(path string) {
 
 func createScaffold(path string, templateZip *[]byte) {
 	mfs := memoryfs.New()
-	_, err := unzipFolder(templateZip, "", mfs)
+	_, err := zip.UnzipFolder(templateZip, "", mfs)
 	if err != nil {
 		panic(err)
 	}
-	err = vfsToDisk(path, "", mfs)
+	err = fs.VfsToDisk(path, "", mfs)
 	if err != nil {
 		panic(err)
 	}
@@ -88,7 +90,7 @@ func getTemplates() ([]string, map[string]*[]byte) {
 	if err != nil {
 		panic(err)
 	}
-	baseFolderName, err := unzipFolder(&data, "", mfs)
+	baseFolderName, err := zip.UnzipFolder(&data, "", mfs)
 	if err != nil {
 		panic(err)
 	}
@@ -105,7 +107,7 @@ func getTemplates() ([]string, map[string]*[]byte) {
 		}
 		templateNames = append(templateNames, folder.Name())
 		startPath := filepath.Join(templatesPath, folder.Name())
-		zipped, err := zipFolder(startPath, mfs)
+		zipped, err := zip.ZipFolder(startPath, mfs)
 		if err != nil {
 			panic(err)
 		}

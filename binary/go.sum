@@ -19,6 +19,8 @@ github.com/lspaccatrosi16/go-cli-tools v0.1.4 h1:QcLLIltL4/uzIRaUcLBYDskeW4LFxs4
 github.com/lspaccatrosi16/go-cli-tools v0.1.4/go.mod h1:iyhfknfKS9U80OXFUiPjJCBj7YK086ZgoLJqZoN5AaE=
 github.com/lspaccatrosi16/go-cli-tools v0.1.5 h1:q7YrHEvJ+rK9csfOTQK4DZapg2fOJhuIS9oRtscwTvQ=
 github.com/lspaccatrosi16/go-cli-tools v0.1.5/go.mod h1:iyhfknfKS9U80OXFUiPjJCBj7YK086ZgoLJqZoN5AaE=
+github.com/lspaccatrosi16/go-cli-tools v0.2.1-0.20231022150409-fdc495f1aae3 h1:aCJjwiOgys7vyBHt9KQ0t4n0hp34CoDu5ka39qHPDbQ=
+github.com/lspaccatrosi16/go-cli-tools v0.2.1-0.20231022150409-fdc495f1aae3/go.mod h1:ppOT+F1t4THNKFcvLjED6tVHPZ2Opq4+yZv6aukjR98=
 github.com/mandelsoft/filepath v0.0.0-20200909114706-3df73d378d55 h1:mFdiUG86O2iW+iDEpZKXf64efMWO4JvDT+zN3znUGIc=
 github.com/mandelsoft/filepath v0.0.0-20200909114706-3df73d378d55/go.mod h1:n4xEiUD2HNHnn2w5ZKF0qgjDecHVCWAl5DxZ7+pcFU8=
 github.com/mandelsoft/vfs v0.0.0-20230714093241-d557f163aecd h1:bp5Qgw/7gqjGU9jNLCMSCDEGw3r1uIxMju6V+F18GbY=
@@ -46,6 +48,7 @@ golang.org/x/sys v0.0.0-20200519105757-fe76b779f299/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.8.0 h1:EBmGv8NaZBZTWvrbjNoL6HVt+IVy3QDQpJs7VRIw3tU=
 golang.org/x/sys v0.8.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.9.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.13.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.2/go.mod h1:bEr9sfX3Q8Zfm5fL9x+3itogRgK3+ptLWKqgva+5dAk=
 golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
