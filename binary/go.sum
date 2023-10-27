@@ -20,6 +20,8 @@ github.com/google/go-cmp v0.4.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
 github.com/lspaccatrosi16/go-cli-tools v0.2.5 h1:kcc8oQphZnTuAqwXe+9HPz73jT15wa4TiEE/gLOZvw8=
 github.com/lspaccatrosi16/go-cli-tools v0.2.5/go.mod h1:ppOT+F1t4THNKFcvLjED6tVHPZ2Opq4+yZv6aukjR98=
+github.com/lspaccatrosi16/go-cli-tools v0.3.4 h1:kCQZAtUlxlD3OJdDBiuqxgyc7g7rMtF1aoTBA50HjM0=
+github.com/lspaccatrosi16/go-cli-tools v0.3.4/go.mod h1:ppOT+F1t4THNKFcvLjED6tVHPZ2Opq4+yZv6aukjR98=
 github.com/mandelsoft/filepath v0.0.0-20200909114706-3df73d378d55 h1:mFdiUG86O2iW+iDEpZKXf64efMWO4JvDT+zN3znUGIc=
 github.com/mandelsoft/filepath v0.0.0-20200909114706-3df73d378d55/go.mod h1:n4xEiUD2HNHnn2w5ZKF0qgjDecHVCWAl5DxZ7+pcFU8=
 github.com/mandelsoft/vfs v0.0.0-20230714093241-d557f163aecd h1:bp5Qgw/7gqjGU9jNLCMSCDEGw3r1uIxMju6V+F18GbY=
