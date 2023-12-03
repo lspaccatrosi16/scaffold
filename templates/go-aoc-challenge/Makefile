@@ -8,5 +8,5 @@ build:
 
 run: build
 	@echo "Running"
-	@cat challenge/input.txt | ./out/linux/aoc > challenge/output.txt 
+	@time cat challenge/input.txt | ./out/linux/aoc > challenge/output.txt 
 
